@@ -1,3 +1,4 @@
+import { FETCH_DATA, FETCH_SUCCESS, FETCH_FAIL, POST_SUCCESS, POST_DATA, POST_FAIL, EDIT_DATA, EDIT_FAIL, EDIT_SUCCESS } from "../actions/actions";
 
 const initialState = {
     campaigns:[],
