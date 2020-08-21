@@ -1,6 +1,12 @@
 
+const initialState = {
+    user: {
+        usename: "",
+    },
+    campaigns:[],
+}
 
-const kickstartReducer = () => {
+const kickstartReducer = (state = initialState, action) => {
     return {
         
     }
