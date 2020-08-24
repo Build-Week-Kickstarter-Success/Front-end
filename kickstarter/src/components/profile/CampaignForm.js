@@ -109,7 +109,7 @@ const CampaignsForm = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     console.log(state)
     return{
         campaigns: state.campaigns,

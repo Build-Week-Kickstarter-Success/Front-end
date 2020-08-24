@@ -8,8 +8,8 @@ function Registration() {
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const {push} = useHistory();
     const [form, setForm] = useState({
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         username:"",
         email: "",
         password: "",
@@ -18,13 +18,12 @@ function Registration() {
     });
 
     const [error, setError] = useState({
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         username:"",
         email: "",
         password: "",
         terms: true
-
     })
 
     const formSchema = Yup.object().shape({
