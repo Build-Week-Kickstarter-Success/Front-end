@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import "../styles/login.css";
 import * as Yup from "yup";
 import {useInput} from "./Customhooks/Logincustomhook"
+import {motion} from 'framer-motion'
 
 function Login() {
     // const [form, setForm] = useState({
@@ -72,7 +73,7 @@ function Login() {
     return (
         <div>
             <div className="maincontainer">
-                <h2>Login</h2>
+                <motion.h2 animate={{color:"red",rotateZ:360}}>Login</motion.h2>
                 <em>Please Login</em>
             </div>
             <div className="container"> 
