@@ -7,7 +7,7 @@ export const FETCH_FAIL = "FETCH_FAIL";
 export const fetchCampaigns = () => (dispatch) => {
     dispatch({type: FETCH_DATA})
     axios
-        .get("")
+        .get("https://bw1kickstartersuccess.herokuapp.com/api/campaign")
         .then( res => {
              console.log("Fetch success", res.data);
         dispatch ({type: FETCH_SUCCESS, payload: res.data})
@@ -26,7 +26,7 @@ export const postCampaigns = (campaign) => (dispatch) => {
     dispatch({type: POST_DATA})
     console.log(campaign)    
     axios
-        .post("", campaign)
+        .post("https://bw1kickstartersuccess.herokuapp.com/api/campaign", campaign)
         .then( res => {
              console.log("Post success", res.data)
         dispatch ({type: POST_SUCCESS, payload: res.data})
@@ -45,7 +45,7 @@ export const updateCampaigns = (campaign, campaignToEdit) => (dispatch) => {
     dispatch({type: EDIT_DATA})
     console.log(campaign)    
     axios
-        .put("", campaignToEdit)
+        .put("https://bw1kickstartersuccess.herokuapp.com/api/campaign", campaignToEdit)
         .then( res => {
              console.log("Edit success", res.data)
         dispatch ({type: EDIT_SUCCESS, payload: res.data})
@@ -64,7 +64,7 @@ export const deleteCampaigns = (campaign, campaignToEdit) => (dispatch) => {
     dispatch({type: DELETE_DATA})
     console.log(campaign)    
     axios
-        .delete("", campaign)
+        .delete("https://bw1kickstartersuccess.herokuapp.com/api/campaign", campaign)
         .then( res => {
             //  console.log("Delete success", res.data),
              updateCampaigns(campaign.filter((item) => item.id !== campaignToEdit.id))
