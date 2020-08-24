@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/registration.css";
 import * as Yup from "yup";
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Registration() {
     const [buttonDisabled, setButtonDisabled] = useState(true)
+    const {push} = useHistory();
     const [form, setForm] = useState({
         firstname: "",
         lastname: "",
@@ -79,7 +82,14 @@ function Registration() {
 
     const formSubmit = event => {
         event.preventDefault();
-
+        axios
+            .post('http://localhost:5000/api/register', form)
+            .then(res => {
+                push('/login')
+            })
+            .catch(err => {
+                console.log('Something went wrong: ', err.message);
+            })
     }
 
     
