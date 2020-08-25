@@ -1,25 +1,31 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/registration.css";
 import * as Yup from "yup";
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { axiosAuth } from './utils/axiosAuth';
 
 function Registration() {
     const [buttonDisabled, setButtonDisabled] = useState(true)
+    const {push} = useHistory();
     const [form, setForm] = useState({
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         username:"",
         email: "",
         password: "",
-        terms: ""
+        avatar: "",
+        // terms: ""
 
     });
 
     const [error, setError] = useState({
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         username:"",
         email: "",
         password: "",
+        avatar: "",
         terms: true
 
     })
@@ -27,10 +33,11 @@ function Registration() {
     const formSchema = Yup.object().shape({
         email: Yup.string().email("Must be a valid email address")
         .required("Must include an email address"),
-        firstname: Yup.string().required("Please enter your First Name"),
-        lastname: Yup.string().required("Please enter your Last Name"),
+        first_name: Yup.string().required("Please enter your First Name"),
+        last_name: Yup.string().required("Please enter your Last Name"),
         username: Yup.string().required("Please enter a Username").min(3,"Please enter a miniumum of 3 characters"),
         password: Yup.string().required("Please enter in a password").min(6, "Please enter a password with a minimum of 6 characters"),
+        avatar: Yup.string().required("Please enter an avatar").min(3,"Please enter a miniumum of 3 characters"),
         terms: Yup.boolean().oneOf([true], "Please agree to terms")
 
     })
@@ -42,6 +49,7 @@ function Registration() {
         const newFormData ={
             ...form,
             [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+            
         }
         validateChange(e)
         setForm(newFormData)
@@ -79,7 +87,15 @@ function Registration() {
 
     const formSubmit = event => {
         event.preventDefault();
-
+        axiosAuth()
+            .post('/auth/register', form)
+            .then(res => {
+                console.log(res)
+                push('/login')
+            })
+            .catch(err => {
+                console.log('Something went wrong: ', err.message);
+            })
     }
 
     
@@ -96,14 +112,14 @@ function Registration() {
                         <br></br>
                         <label>
                             First Name
-                            <input type="text" name="firstname" onChange={formChange} value={form.firstname}></input>
-                            {error.firstname.length > 0 ? <p>{error.firstname}</p> :null}
+                            <input type="text" name="first_name" onChange={formChange} value={form.first_name}></input>
+                            {error.first_name.length > 0 ? <p>{error.first_name}</p> :null}
                         </label>
                         <label>
                             Last Name
-                            <input type="text" name="lastname"
-                            onChange={formChange} value={form.lastname}/>
-                            {error.lastname.length > 0 ? <p>{error.lastname}</p>:null}
+                            <input type="text" name="last_name"
+                            onChange={formChange} value={form.last_name}/>
+                            {error.last_name.length > 0 ? <p>{error.last_name}</p>:null}
                         </label>
                         <label htmlFor='email'>
                             Email
@@ -122,6 +138,13 @@ function Registration() {
                             Password
                             <input type="password" name="password" onChange={formChange} value={form.password}/>
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
+                        </label>
+                        <label>
+                            Avatar
+                            <input type="text" name="avatar" 
+                            onChange={formChange} value={form.avatar}/>
+                            {error.username.length > 3 ? <p>{error.username}</p>:null}
+                            
                         </label>
                         <label htmlFor="terms">Terms of Service
                             <input type="checkbox" id="terms" name='terms'

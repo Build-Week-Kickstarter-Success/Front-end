@@ -1,8 +1,12 @@
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
+import { axiosAuth } from "../components/utils/axiosAuth";
 
 export const FETCH_DATA = "FETCH_DATA";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAIL = "FETCH_FAIL";
+
+
 
 export const fetchCampaigns = () => (dispatch) => {
     dispatch({type: FETCH_DATA})
@@ -23,12 +27,14 @@ export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAIL = "POST_FAIL";
 
 export const postCampaigns = (campaign) => (dispatch) => {
+    
     dispatch({type: POST_DATA})
     console.log(campaign)    
-    axios
-        .post("https://bw1kickstartersuccess.herokuapp.com/api/campaign", campaign)
-        .then( res => {
-             console.log("Post success", res.data)
+    axiosAuth()
+        .post("campaign", campaign)
+        .then(  res => {
+             console.log("Post success", res.data) 
+                useHistory('/profile')
         dispatch ({type: POST_SUCCESS, payload: res.data})
     })
     .catch(err => {

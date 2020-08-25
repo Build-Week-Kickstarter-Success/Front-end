@@ -70,6 +70,9 @@ const kickstartReducer = (state = initialState, action) => {
                 isPosting: false,
                 error: action.payload
             }
+            
+            default: 
+            return state
     }
    
 }

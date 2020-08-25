@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { postCampaigns } from "../../actions/actions";
+import { useHistory } from 'react-router-dom';
 
 const CampaignsForm = (props) => {
+    const {push} = useHistory();
+    
     const [campaign, setCampaign] = useState ({
         name: '',
         video: '',
@@ -18,7 +21,8 @@ const CampaignsForm = (props) => {
     }
     const submitHandler = e => {
         e.preventDefault();
-        props.postCampaigns(campaign)
+        props.postCampaigns(campaign)   
+            
     }
     return(
         <div>
