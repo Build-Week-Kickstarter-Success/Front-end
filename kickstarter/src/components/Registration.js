@@ -13,7 +13,6 @@ function Registration() {
         username:"",
         email: "",
         password: "",
-        terms: ""
 
     });
 
@@ -22,8 +21,8 @@ function Registration() {
         last_name: "",
         username:"",
         email: "",
-        password: "",
-        terms: true
+        password: ""
+
     })
 
     const formSchema = Yup.object().shape({
@@ -133,9 +132,7 @@ function Registration() {
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
                         <label htmlFor="terms">Terms of Service
-                            <input type="checkbox" id="terms" name='terms'
-                            value={form.terms} onChange={formChange} ></input>
-                            {error.terms.length > 0 ? <p>{error.terms}</p> :null}
+                            <input type="checkbox" id="terms"/>
                         </label>  
                         <button disabled={buttonDisabled}type="submit">Register</button>
 
