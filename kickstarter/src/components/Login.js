@@ -81,34 +81,24 @@ function Login() {
             })
     }
 
-    
-
     return (
         <div>
-            <div className="maincontainer">
-                <motion.h2 animate={{color:"red",rotateZ:360}}>Login</motion.h2>
-                <em>Please Login</em>
-            </div>
-            <div className="container"> 
-                <div className="formcontainer">
+                <div className="container">
                     <form onSubmit={formSubmit}>
+                    <motion.h2 animate={{color:"red",rotateZ:360}}>Login</motion.h2>
                         <br></br>
                         <label>
-                            Username
-                            <input type="text" name="username" 
+                            <input type="text" name="username" placeholder="Username" 
                             onChange={e => handleUsername(e.target.value)} value={username}/>
                             {error.username.length > 3 ? <p>{error.username}</p>:null}  
                         </label>
                         <label>
-                            Password
-                            <input type="password" name="password" onChange={e => handlePassword(e.target.value)} value={password}/>
+                            <input type="password" name="password" placeholder="Password" onChange={e => handlePassword(e.target.value)} value={password}/>
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
                         <button type="submit">Login</button>
-
                     </form>
                 </div>
-            </div>
         </div>
     )
 }
