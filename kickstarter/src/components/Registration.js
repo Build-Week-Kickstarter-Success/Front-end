@@ -29,8 +29,8 @@ function Registration() {
     const formSchema = Yup.object().shape({
         email: Yup.string().email("Must be a valid email address")
         .required("Must include an email address"),
-        firstname: Yup.string().required("Please enter your First Name"),
-        lastname: Yup.string().required("Please enter your Last Name"),
+        first_name: Yup.string().required("Please enter your First Name"),
+        last_name: Yup.string().required("Please enter your Last Name"),
         username: Yup.string().required("Please enter a Username").min(3,"Please enter a miniumum of 3 characters"),
         password: Yup.string().required("Please enter in a password").min(6, "Please enter a password with a minimum of 6 characters"),
 
@@ -94,50 +94,42 @@ function Registration() {
 
     return (
         <div>
-            <div className="maincontainer">
-                <motion.h2 animate={{color:"Purple", rotateZ:360}}>Register</motion.h2>
-                <em>Please fill out form to register</em>
-            </div>
             <div className="container"> 
-                <div className="formcontainer">
                     <form onSubmit={formSubmit}>
+                    <motion.h2 animate={{color:"rgb(138, 43, 226)", rotateZ:360}}>Register</motion.h2>
                         <br></br>
                         <label>
-                            First Name
-                            <input type="text" name="firstname" onChange={formChange} value={form.firstname}></input>
-                            {error.firstname.length > 0 ? <p>{error.firstname}</p> :null}
+                            
+                            <input type="text" name="first_name" placeholder="First Name" onChange={formChange} value={form.first_name}></input>
+                            {error.first_name.length > 0 ? <p>{error.first_name}</p> :null}
                         </label>
                         <label>
-                            Last Name
-                            <input type="text" name="lastname"
+                           
+                            <input type="text" placeholder="Last Name"name="last_name"
                             onChange={formChange} value={form.lastname}/>
-                            {error.lastname.length > 0 ? <p>{error.lastname}</p>:null}
+                            {error.last_name.length > 0 ? <p>{error.last_name}</p>:null}
                         </label>
                         <label htmlFor='email'>
-                            Email
-                            <input type="text" id="email" name="email"
+                            
+                            <input type="text" id="email" name="email" placeholder="Email"
                             onChange={formChange} value={form.email}></input>
                             {error.email.length > 0 ? <p>{error.email}</p> :null}
                         </label>
                         <label>
-                            Username
-                            <input type="text" name="username" 
+                           
+                            <input type="text" name="username"
+                            placeholder="Username" 
                             onChange={formChange} value={form.username}/>
                             {error.username.length > 3 ? <p>{error.username}</p>:null}
                             
                         </label>
                         <label>
-                            Password
-                            <input type="password" name="password" onChange={formChange} value={form.password}/>
+                            <input type="password" name="password" placeholder="Password" onChange={formChange} value={form.password}/>
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
-                        <label htmlFor="terms">Terms of Service
-                            <input type="checkbox" id="terms"/>
-                        </label>  
                         <button disabled={buttonDisabled}type="submit">Register</button>
 
                     </form>
-                </div>
             </div>
         </div>
     )
