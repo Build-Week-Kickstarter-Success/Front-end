@@ -19,7 +19,7 @@ const CampaignsList = (props) => {
 
 const mapStateToProps = (state) => {
     console.log(state)
-    return{
+    return {
         campaigns: state.campaigns,
         isFetching: state.isFetching,
         error: state.error

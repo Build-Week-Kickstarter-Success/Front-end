@@ -3,6 +3,8 @@ import "../styles/login.css";
 import * as Yup from "yup";
 import {useInput} from "./Customhooks/Logincustomhook"
 import {motion} from 'framer-motion'
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
     // const [form, setForm] = useState({
@@ -12,7 +14,11 @@ function Login() {
 
     const [username, setUsername, handleUsername] = useInput("")
     const [password, setPassword, handlePassword] = useInput("")
-
+    const {push} = useHistory();
+    const credentials = {
+        username: username,
+        password: password
+    }
     const [error, setError] = useState({
         username:"",
         password: "",
@@ -65,7 +71,14 @@ function Login() {
 
     const formSubmit = event => {
         event.preventDefault();
-
+        axios
+            .post('http://localhost:5000/api/login', credentials)
+            .then(res => {
+                push('/')
+            })
+            .catch(err => {
+                console.log('Failed Login: ', err.message)
+            })
     }
 
     

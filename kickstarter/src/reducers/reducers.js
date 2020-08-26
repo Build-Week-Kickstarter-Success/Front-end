@@ -7,7 +7,7 @@ const initialState = {
     error: ""
 }
 
-const kickstartReducer = (state = initialState, action) => {
+export const kickstartReducer = (state = initialState, action) => {
     switch(action.type){
         case FETCH_DATA:
             return{
@@ -70,7 +70,7 @@ const kickstartReducer = (state = initialState, action) => {
                 isPosting: false,
                 error: action.payload
             }
+        default: 
+            return state;
     }
-   
 }
-export default kickstartReducer;
