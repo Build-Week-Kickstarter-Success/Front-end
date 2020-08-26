@@ -29,15 +29,18 @@ export const POST_FAIL = "POST_FAIL";
 export const postCampaigns = (campaign) => (dispatch) => {
     
     dispatch({type: POST_DATA})
-    console.log(campaign)    
+    console.log(campaign)  
+    campaign = {...campaign}  
     axiosAuth()
         .post("campaign", campaign)
-        .then(  res => {
+        .then( res => { 
+            
              console.log("Post success", res.data) 
-                useHistory('/profile')
+                useHistory('profile')
         dispatch ({type: POST_SUCCESS, payload: res.data})
     })
     .catch(err => {
+        console.log( localStorage.getItem("token"))
         console.log(err)
         dispatch({type: POST_FAIL, payload: err})
     })
@@ -81,3 +84,4 @@ export const deleteCampaigns = (campaign, campaignToEdit) => (dispatch) => {
         dispatch({type: DELETE_FAIL, payload: err})
     })
 }
+

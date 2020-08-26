@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { postCampaigns } from "../../actions/actions";
+import { postCampaigns, updateCampaigns } from "../../actions/actions";
 import { useHistory } from 'react-router-dom';
+import { axiosAuth } from "../utils/axiosAuth";
 
 const CampaignsForm = (props) => {
     const {push} = useHistory();
-    
+    console.log(localStorage.getItem("token"))
     const [campaign, setCampaign] = useState ({
         name: '',
         video: '',
-        description: '',
-        disable_communication: false,
+        desc: '',
+        disable_communication: 0,
+        keywords: '',
         country: 'US',
         currency: 'Dollar',
         goal: 1200,
-        length: 60,
+        campaign_length: 60,
+        user_id: localStorage.getItem("user_id") * 1
+
     })
     const inputHandler = e => {
         setCampaign({...campaign, [e.target.name]: e.target.value})
     }
     const submitHandler = e => {
         e.preventDefault();
-        props.postCampaigns(campaign)   
+        props.postCampaigns(campaign)  
             
     }
     return(
@@ -50,14 +54,14 @@ const CampaignsForm = (props) => {
                 <label htmlFor="description">description</label>
                 <input
                     type="text"
-                    name="description"
-                    labe="description"
+                    name="desc"
+                    labe="desc"
                     placeholder="Campaign description"
-                    value = {props.description}
+                    value = {props.desc}
                     onChange = {inputHandler}
                     className="input"/>
 
-                <label htmlFor="disable_communication">disable_communication</label>
+                {/* <label htmlFor="disable_communication">disable_communication</label>
                                 <input
                                     type="checkbox"
                                     name="disable_communication"
@@ -65,7 +69,7 @@ const CampaignsForm = (props) => {
                                     placeholder="disable_communication"
                                     value = {props.disable_communication}
                                     onChange = {inputHandler}
-                                    className="input"/>
+                                    className="input"/> */}
 
                 <label htmlFor="country">country</label>
                                 <input
@@ -100,10 +104,10 @@ const CampaignsForm = (props) => {
                 <label htmlFor="length">length</label>
                                 <input
                                     type="text"
-                                    name="length"
+                                    name="campaign_length"
                                     labe="length"
                                     placeholder="Campaign length in months"
-                                    value = {props.length}
+                                    value = {props.campaign_length}
                                     onChange = {inputHandler}
                                     className="input"/>
 

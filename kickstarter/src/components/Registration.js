@@ -15,6 +15,7 @@ function Registration() {
         email: "",
         password: "",
         avatar: "",
+        role: 1,
         // terms: ""
 
     });
@@ -26,7 +27,8 @@ function Registration() {
         email: "",
         password: "",
         avatar: "",
-        terms: true
+        role: "",
+        // terms: ""
 
     })
 
@@ -88,7 +90,7 @@ function Registration() {
     const formSubmit = event => {
         event.preventDefault();
         axiosAuth()
-            .post('/auth/register', form)
+            .post('https://bw1kickstartersuccess.herokuapp.com/api/auth/register', form)
             .then(res => {
                 console.log(res)
                 push('/login')
@@ -146,11 +148,11 @@ function Registration() {
                             {error.username.length > 3 ? <p>{error.username}</p>:null}
                             
                         </label>
-                        <label htmlFor="terms">Terms of Service
+                        {/* <label htmlFor="terms">Terms of Service
                             <input type="checkbox" id="terms" name='terms'
-                            value={form.terms} onChange={formChange} ></input>
+                            value={form.terms}  ></input>
                             {error.terms.length > 0 ? <p>{error.terms}</p> :null}
-                        </label>  
+                        </label>   */}
                         <button disabled={buttonDisabled}type="submit">Register</button>
 
                     </form>

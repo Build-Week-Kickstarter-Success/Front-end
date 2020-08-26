@@ -21,4 +21,6 @@ EUR
 NZD           
 SEK           
 DKK           
-NOK   
+NOK  
+
+ https://kickstarter-dspt6-project.herokuapp.com/

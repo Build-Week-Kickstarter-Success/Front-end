@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Registration from './components/Registration';
 import Login from './components/Login';
-import kickstartReducer from './reducers/reducers';
+import PrivateRoute from "./components/utils/PrivateRoute";
 import ProfilePage from './components/profile/ProfilePage';
 import CampaignForm from './components/profile/CampaignForm';
 
@@ -18,7 +18,7 @@ function App() {
       <Route path="/registration" component={Registration}></Route>
       <Route path="/login" component={Login}></Route>
       <Route component={Login} />
-      <Route path="/profile" component={ProfilePage}></Route>
+      <PrivateRoute exact path="/profile" component={ProfilePage}></PrivateRoute>
       <Route path="/form" component={CampaignForm}></Route>
 
     </div>

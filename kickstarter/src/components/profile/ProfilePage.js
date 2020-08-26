@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { axiosAuth } from "../utils/axiosAuth";
 import {Link} from "react-router-dom";
-import axios from "axios";
+
 
 import CampaignCard from "./CampaignCard";
+import CampaignList from "./CampaignsList";
 
 
 const ProfilePage = () => {
     const [user, setUser] = useState([]);
-
+   
     useEffect(() => {
         axiosAuth()
         .get("users")
@@ -21,7 +22,7 @@ const ProfilePage = () => {
 
    return(
        <div>
-           <h1>profile</h1>
+           <CampaignList user = {user.id}/>
            <Link to ="/form"><button>Add Campaign</button></Link>
        </div>
    )

@@ -1,8 +1,12 @@
 import React from "react";
 
 const CampaignsCard = (props) => {
+    console.log(props)
+    // props.campaign.filter((item) => item.id !== props.user_id.id)
     return(
+        
         <div>
+            
             <h2>{props.campaign.name}</h2>
             <h3>{props.campaign.video}</h3>
             <h3>{props.campaign.description}</h3>

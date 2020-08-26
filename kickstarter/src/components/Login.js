@@ -3,7 +3,7 @@ import "../styles/login.css";
 import * as Yup from "yup";
 import {useInput} from "./Customhooks/Logincustomhook"
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { axiosAuth } from './utils/axiosAuth';
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
     const {push} = useHistory();
     const credentials = {
         username: username,
-        password: password
+        password: password,
     }
     const [error, setError] = useState({
         username:"",
@@ -74,7 +74,11 @@ function Login() {
         axiosAuth()
             .post('auth/login', credentials)
             .then(res => {
+                console.log(res)
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user_id", res.data.user.id);
                 push('/profile')
+                
             })
             .catch(err => {
                 console.log('Failed Login: ', err.message)
@@ -105,6 +109,7 @@ function Login() {
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
                         <button type="submit">Login</button>
+                        <Link to ="/registration"><button>Register</button></Link>
 
                     </form>
                 </div>

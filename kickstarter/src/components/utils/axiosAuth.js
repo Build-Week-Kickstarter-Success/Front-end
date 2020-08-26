@@ -1,10 +1,10 @@
 import axios from "axios"
 
 export const axiosAuth = () => {
-    const token = window.localStorage.getItem("token");
-
+    const token = localStorage.getItem("token");
+console.log(token)
     return axios.create({
         baseURL: "https://bw1kickstartersuccess.herokuapp.com/api/",
-        headers: {Authorization: token}
+        headers: {authorization: "Bearer " + token},
     })
 }
