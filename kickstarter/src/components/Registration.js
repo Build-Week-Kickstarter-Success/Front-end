@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import "../styles/registration.css";
 import * as Yup from "yup";
+import {motion} from 'framer-motion'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -32,7 +33,6 @@ function Registration() {
         lastname: Yup.string().required("Please enter your Last Name"),
         username: Yup.string().required("Please enter a Username").min(3,"Please enter a miniumum of 3 characters"),
         password: Yup.string().required("Please enter in a password").min(6, "Please enter a password with a minimum of 6 characters"),
-        terms: Yup.boolean().oneOf([true], "Please agree to terms")
 
     })
 
@@ -95,7 +95,7 @@ function Registration() {
     return (
         <div>
             <div className="maincontainer">
-                <h2>Register</h2>
+                <motion.h2 animate={{color:"Purple", rotateZ:360}}>Register</motion.h2>
                 <em>Please fill out form to register</em>
             </div>
             <div className="container"> 
