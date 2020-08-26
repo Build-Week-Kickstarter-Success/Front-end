@@ -127,7 +127,7 @@ function Registration() {
                             <input type="password" name="password" placeholder="Password" onChange={formChange} value={form.password}/>
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
-                        <button disabled={buttonDisabled}type="submit">Register</button>
+                        <button  disabled={buttonDisabled}type="submit">Register</button>
 
                     </form>
             </div>
