@@ -28,15 +28,16 @@ export const POST_FAIL = "POST_FAIL";
 
 export const postCampaigns = (campaign) => (dispatch) => {
     
+    
     dispatch({type: POST_DATA})
     console.log(campaign)  
     campaign = {...campaign}  
     axiosAuth()
         .post("campaign", campaign)
         .then( res => { 
-            
-             console.log("Post success", res.data) 
-                useHistory('profile')
+             console.log("Post success", res.data);
+             
+                
         dispatch ({type: POST_SUCCESS, payload: res.data})
     })
     .catch(err => {

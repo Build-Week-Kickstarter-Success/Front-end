@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 
 import CampaignCard from "./CampaignCard";
-import CampaignList from "./CampaignsList";
+import CampaignsList from "./CampaignsList";
 
 
 const ProfilePage = () => {
@@ -22,7 +22,7 @@ const ProfilePage = () => {
 
    return(
        <div>
-           <CampaignList user = {user.id}/>
+           <CampaignsList/>
            <Link to ="/form"><button>Add Campaign</button></Link>
        </div>
    )

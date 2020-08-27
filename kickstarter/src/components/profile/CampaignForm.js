@@ -25,7 +25,8 @@ const CampaignsForm = (props) => {
     }
     const submitHandler = e => {
         e.preventDefault();
-        props.postCampaigns(campaign)  
+        props.postCampaigns(campaign)
+        push("/profile")  
             
     }
     return(

@@ -17,8 +17,8 @@ function App() {
         <Route path='/campaign' component={CampaignForm} />
         <Route path="/registration" component={Registration}></Route>
         <Route path="/login" component={Login}></Route>
-        <Route component={Login} />
-        <PrivateRoute exact path="/profile" component={ProfilePage}></PrivateRoute>
+        
+        <Route path="/profile" component={ProfilePage}></Route>
         <Route path="/form" component={CampaignForm}></Route>
       </Switch>
     </div>
