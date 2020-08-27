@@ -1,22 +1,36 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { postCampaigns } from "../../actions/actions";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
+
+
+
+
+
+
+    
+
+import { postCampaigns, updateCampaigns } from "../../actions/actions";
+import { useHistory } from 'react-router-dom';
+import { axiosAuth } from "../utils/axiosAuth";
 
 const CampaignsForm = (props) => {
-    const { push } = useHistory();
-    const [active, setActive] = useState(false);
+    const {push} = useHistory();
+    console.log(localStorage.getItem("token"))
+
+  const [active, setActive] = useState(false);
+  
     const [campaign, setCampaign] = useState ({
         name: '',
         video: '',
         desc: '',
         disable_communication: 0,
+        keywords: '',
         country: 'US',
         currency: 'Dollar',
-        goal: '',
-        campaign_length: '',
-        user_id: Date.now()
+        goal: 1200,
+        campaign_length: 60,
+        user_id: localStorage.getItem("user_id") * 1
+
+
     })
     const inputHandler = e => {
         if(e.target.type === 'checkbox' && active === false){
@@ -41,8 +55,9 @@ const CampaignsForm = (props) => {
     console.log(campaign)
     const submitHandler = e => {
         e.preventDefault();
+
         console.log('state being sent', campaign)
-        axiosWithAuth()
+        axiosAuth()
             .post('campaign', campaign)
             .then(res => {
                 console.log('response after posting campaign: ', res)
@@ -51,6 +66,7 @@ const CampaignsForm = (props) => {
             .catch(err => {
                 console.log('failed to post campaign: ', err.message)
             })
+
     }
     return(
         <div>
@@ -78,14 +94,14 @@ const CampaignsForm = (props) => {
                 <label htmlFor="description">description</label>
                 <input
                     type="text"
-                    name="description"
-                    labe="description"
+                    name="desc"
+                    labe="desc"
                     placeholder="Campaign description"
-                    value = {props.description}
+                    value = {props.desc}
                     onChange = {inputHandler}
                     className="input"/>
 
-                <label htmlFor="disable_communication">disable_communication</label>
+                {/* <label htmlFor="disable_communication">disable_communication</label>
                                 <input
                                     type="checkbox"
                                     name="disable_communication"
@@ -93,7 +109,7 @@ const CampaignsForm = (props) => {
                                     placeholder="disable_communication"
                                     value = {props.disable_communication}
                                     onChange = {inputHandler}
-                                    className="input"/>
+                                    className="input"/> */}
 
                 <label htmlFor="country">country</label>
                                 <input
@@ -128,10 +144,10 @@ const CampaignsForm = (props) => {
                 <label htmlFor="length">length</label>
                                 <input
                                     type="text"
-                                    name="length"
+                                    name="campaign_length"
                                     labe="length"
                                     placeholder="Campaign length in months"
-                                    value = {props.length}
+                                    value = {props.campaign_length}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -141,7 +157,7 @@ const CampaignsForm = (props) => {
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     console.log(state)
     return{
         campaigns: state.campaigns,
