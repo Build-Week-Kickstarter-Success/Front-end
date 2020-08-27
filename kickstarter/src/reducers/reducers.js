@@ -30,7 +30,7 @@ const kickstartReducer = (state = initialState, action) => {
                 error: action.payload
             }
 
-            case POST_DATA:
+        case POST_DATA:
             return{
                 ...state,
                 isPosting: true,

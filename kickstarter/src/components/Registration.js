@@ -106,6 +106,7 @@ function Registration() {
                     <motion.h2 animate={{color:"rgb(138, 43, 226)", rotateZ:360}}>Register</motion.h2>
                         <br></br>
                         <label>
+
                             
                             <input type="text" name="first_name" placeholder="First Name" onChange={formChange} value={form.first_name}></input>
                             {error.first_name.length > 0 ? <p>{error.first_name}</p> :null}
@@ -114,6 +115,7 @@ function Registration() {
                            
                             <input type="text" placeholder="Last Name"name="last_name"
                             onChange={formChange} value={form.last_name}/>
+
                             {error.last_name.length > 0 ? <p>{error.last_name}</p>:null}
                         </label>
                         <label htmlFor='email'>

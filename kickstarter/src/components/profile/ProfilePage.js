@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { axiosAuth } from "../utils/axiosAuth";
 import {Link} from "react-router-dom";
@@ -29,3 +30,4 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage;
+
