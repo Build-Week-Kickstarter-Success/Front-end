@@ -1,4 +1,6 @@
 import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory, useParams } from 'react-router-dom';
 
 export const FETCH_DATA = "FETCH_DATA";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
@@ -7,7 +9,7 @@ export const FETCH_FAIL = "FETCH_FAIL";
 export const fetchCampaigns = () => (dispatch) => {
     dispatch({type: FETCH_DATA})
     axios
-        .get("")
+        .get("https://bw1kickstartersuccess.herokuapp.com/api/campaign")
         .then( res => {
              console.log("Fetch success", res.data);
         dispatch ({type: FETCH_SUCCESS, payload: res.data})
@@ -25,8 +27,8 @@ export const POST_FAIL = "POST_FAIL";
 export const postCampaigns = (campaign) => (dispatch) => {
     dispatch({type: POST_DATA})
     console.log(campaign)    
-    axios
-        .post("", campaign)
+    axiosWithAuth()
+        .post(`campaign`, campaign)
         .then( res => {
              console.log("Post success", res.data)
         dispatch ({type: POST_SUCCESS, payload: res.data})
@@ -41,19 +43,20 @@ export const EDIT_DATA = "EDIT_DATA";
 export const EDIT_SUCCESS = "EDIT_SUCCESS";
 export const EDIT_FAIL = "EDIT_FAIL";
 
-export const updateCampaigns = (campaign, campaignToEdit) => (dispatch) => {
+export const updateCampaigns = campaignToEdit => (dispatch) => {
+    
     dispatch({type: EDIT_DATA})
-    console.log(campaign)    
-    axios
-        .put("", campaignToEdit)
-        .then( res => {
+
+    axiosWithAuth()
+        .put(`https://bw1kickstartersuccess.herokuapp.com/api/campaign`, campaignToEdit)
+        .then(res => {
              console.log("Edit success", res.data)
-        dispatch ({type: EDIT_SUCCESS, payload: res.data})
-    })
-    .catch(err => {
-        console.log(err)
-        dispatch({type: EDIT_FAIL, payload: err})
-    })
+            dispatch ({type: EDIT_SUCCESS, payload: res.data})
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({type: EDIT_FAIL, payload: err})
+        })
 }
 
 export const DELETE_DATA = "DELETE_DATA";
@@ -67,8 +70,8 @@ export const deleteCampaigns = (campaign, campaignToEdit) => (dispatch) => {
         .delete("", campaign)
         .then( res => {
             //  console.log("Delete success", res.data),
-             updateCampaigns(campaign.filter((item) => item.id !== campaignToEdit.id))
-        dispatch ({type: DELETE_SUCCESS, payload: res.data})
+            updateCampaigns(campaign.filter((item) => item.id !== campaignToEdit.id))
+            dispatch ({type: DELETE_SUCCESS, payload: res.data})
     })
     .catch(err => {
         console.log(err)

@@ -1,67 +1,70 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { postCampaigns } from "../../actions/actions";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import { updateCampaigns } from '../../actions/actions';
 
-const CampaignsForm = (props) => {
-    const { push } = useHistory();
-    const [active, setActive] = useState(false);
-    const [campaign, setCampaign] = useState ({
+const initialValue = {
         name: '',
         video: '',
         desc: '',
-        disable_communication: 0,
+        disable_communication: false,
         country: 'US',
         currency: 'Dollar',
-        goal: '',
-        campaign_length: '',
-        user_id: Date.now()
-    })
-    const inputHandler = e => {
-        if(e.target.type === 'checkbox' && active === false){
-            setActive(true);
-            setCampaign({
-                ...campaign,
-                disable_communication: 1,
-            })
-        }else if(e.target.type === 'checkbox' && active === true){
-            setActive(false);
-            setCampaign({
-                ...campaign,
-                disable_communication: 0
-            })
-        }else{
-            setCampaign({
-                ...campaign,
-                [e.target.name]: e.target.value
-            })
-        }
-    }
-    console.log(campaign)
-    const submitHandler = e => {
-        e.preventDefault();
-        console.log('state being sent', campaign)
+        goal: 1200,
+        campaign_length: 60,
+}
+const CampaignEdit = props => {
+    const [campaign, setCampaign] = useState(initialValue);
+    const { id } = useParams();
+    const { push } = useHistory();
+    useEffect(() => {
         axiosWithAuth()
-            .post('campaign', campaign)
+            .get(`campaign`)
             .then(res => {
-                console.log('response after posting campaign: ', res)
+                console.log(res)
+                const filteredArray = res.data.filter(campaign => campaign.id == id)
+                setCampaign(filteredArray[0]);
+            })
+            .catch(err => {
+                console.log('There was an error retrieving campaign: ', err.message);
+            })
+    }, [id]) 
+
+    const inputHandler = (ev) => {
+        ev.persist();
+        let value = ev.target.value;
+        if (ev.target.name === "price") {
+          value = parseInt(value, 10);
+        }
+        console.log(campaign)
+        setCampaign({
+          ...campaign,
+          [ev.target.name]: value
+        });
+      };
+
+      const submitHandler = e => {
+        e.preventDefault();
+        axiosWithAuth()
+            .put(`campaign/${id}`, campaign)
+            .then(res => {
                 push('/campaign-list')
             })
             .catch(err => {
-                console.log('failed to post campaign: ', err.message)
-            })
+                console.log('Could not update campaign: ', err.message)
+            })        
     }
     return(
         <div>
-            <form id = "campaignForm" onSubmit={submitHandler}>
+            <form id = "edit-campaign-form" onSubmit={submitHandler}>
                 <label htmlFor="name">Name</label>
                 <input
                     type="text"
+                    id='name'
                     name="name"
-                    labe="name"
                     placeholder="Enter Name"
-                    value = {props.name}
+                    value = {campaign.name}
                     onChange = {inputHandler}
                     className="input"/>
 
@@ -70,18 +73,17 @@ const CampaignsForm = (props) => {
                     type="text"
                     name="video"
                     labe="video"
-                    placeholder="campaign video"
-                    value = {props.video}
+                    placeholder="Campaign video"
+                    value = {campaign.video}
                     onChange = {inputHandler}
                     className="input"/>
-
                 <label htmlFor="description">description</label>
                 <input
                     type="text"
-                    name="description"
-                    labe="description"
+                    name="desc"
+                    label="desc"
                     placeholder="Campaign description"
-                    value = {props.description}
+                    value = {campaign.desc}
                     onChange = {inputHandler}
                     className="input"/>
 
@@ -91,7 +93,7 @@ const CampaignsForm = (props) => {
                                     name="disable_communication"
                                     labe="disable_communication"
                                     placeholder="disable_communication"
-                                    value = {props.disable_communication}
+                                    value = {campaign.disable_communication}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -101,7 +103,7 @@ const CampaignsForm = (props) => {
                                     name="country"
                                     labe="country"
                                     placeholder="country"
-                                    value = {props.country}
+                                    value = {campaign.country}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -111,7 +113,7 @@ const CampaignsForm = (props) => {
                                     name="currency"
                                     labe="currency"
                                     placeholder="currency"
-                                    value = {props.currency}
+                                    value = {campaign.currency}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -121,33 +123,36 @@ const CampaignsForm = (props) => {
                                     name="goal"
                                     labe="goal"
                                     placeholder="goal"
-                                    value = {props.goal}
+                                    value = {campaign.goal}
                                     onChange = {inputHandler}
                                     className="input"/>
 
-                <label htmlFor="length">length</label>
+                <label htmlFor="campaign_length">length</label>
                                 <input
                                     type="text"
-                                    name="length"
+                                    name="campaign_length"
                                     labe="length"
                                     placeholder="Campaign length in months"
-                                    value = {props.length}
+                                    value = {campaign.campaign_length}
                                     onChange = {inputHandler}
                                     className="input"/>
 
-                    <button>Submit Campaign</button>
+                    <button>Edit Campaign</button>
             </form>
         </div>
+
     )
 }
 
 const mapStateToProps = state => {
-    console.log(state)
-    return{
-        campaigns: state.campaigns,
-        isPosting: state.isPosting,
-        error: state.error
+    return {
+
     }
 }
 
-export default connect(mapStateToProps, {postCampaigns})(CampaignsForm)
+export default connect(
+    mapStateToProps,
+    {
+        updateCampaigns
+    }
+)(CampaignEdit);

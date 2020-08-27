@@ -104,14 +104,14 @@ function Registration() {
                         <br></br>
                         <label>
                             First Name
-                            <input type="text" name="firstname" onChange={formChange} value={form.firstname}></input>
-                            {error.firstname.length > 0 ? <p>{error.firstname}</p> :null}
+                            <input type="text" name="first_name" onChange={formChange} value={form.firstname}></input>
+                            {error.first_name.length > 0 ? <p>{error.first_name}</p> :null}
                         </label>
                         <label>
                             Last Name
-                            <input type="text" name="lastname"
+                            <input type="text" name="last_name"
                             onChange={formChange} value={form.lastname}/>
-                            {error.lastname.length > 0 ? <p>{error.lastname}</p>:null}
+                            {error.last_name.length > 0 ? <p>{error.last_name}</p>:null}
                         </label>
                         <label htmlFor='email'>
                             Email
