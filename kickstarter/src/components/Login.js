@@ -14,7 +14,7 @@ function Login() {
 
     const [username, setUsername, handleUsername] = useInput("")
     const [password, setPassword, handlePassword] = useInput("")
-    const push = useHistory();
+    const {push} = useHistory();
     const credentials = {
         username: username,
         password: password
@@ -76,8 +76,8 @@ function Login() {
             .then(res => {
                 console.log(res)
                 localStorage.setItem("token", res.data.token);
-                localStorage.setItem("user_id", res.data.user.id);
-                push('/profile')
+                localStorage.setItem("user_id", res.data.id);
+                push('profile')
                 
             })
             .catch(err => {
