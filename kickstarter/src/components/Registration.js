@@ -14,7 +14,9 @@ function Registration() {
         username:"",
         email: "",
         password: "",
-
+        avatar: "",
+        role: 1,
+        // terms: ""
     });
 
     const [error, setError] = useState({
@@ -22,7 +24,10 @@ function Registration() {
         last_name: "",
         username:"",
         email: "",
-        password: ""
+        password: "",
+        avatar: "",
+        role: "",
+        // terms: ""
 
     })
 
@@ -33,9 +38,10 @@ function Registration() {
         last_name: Yup.string().required("Please enter your Last Name"),
         username: Yup.string().required("Please enter a Username").min(3,"Please enter a miniumum of 3 characters"),
         password: Yup.string().required("Please enter in a password").min(6, "Please enter a password with a minimum of 6 characters"),
+        avatar: Yup.string().required("Please enter an avatar").min(3,"Please enter a miniumum of 3 characters"),
+        terms: Yup.boolean().oneOf([true], "Please agree to terms")
 
     })
-
     const formChange = e =>{
         e.persist();
 
@@ -81,8 +87,9 @@ function Registration() {
     const formSubmit = event => {
         event.preventDefault();
         axios
-            .post('http://localhost:5000/api/register', form)
+            .post('https://bw1kickstartersuccess.herokuapp.com/api/auth/register', form)
             .then(res => {
+                console.log(res)
                 push('/login')
             })
             .catch(err => {
@@ -106,7 +113,7 @@ function Registration() {
                         <label>
                            
                             <input type="text" placeholder="Last Name"name="last_name"
-                            onChange={formChange} value={form.lastname}/>
+                            onChange={formChange} value={form.last_name}/>
                             {error.last_name.length > 0 ? <p>{error.last_name}</p>:null}
                         </label>
                         <label htmlFor='email'>
@@ -127,7 +134,7 @@ function Registration() {
                             <input type="password" name="password" placeholder="Password" onChange={formChange} value={form.password}/>
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
-                        <button  disabled={buttonDisabled}type="submit">Register</button>
+                        <button  type="submit">Register</button>
 
                     </form>
             </div>

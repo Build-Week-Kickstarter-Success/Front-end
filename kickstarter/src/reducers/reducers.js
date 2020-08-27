@@ -2,12 +2,13 @@ import { FETCH_DATA, FETCH_SUCCESS, FETCH_FAIL, POST_SUCCESS, POST_DATA, POST_FA
 
 const initialState = {
     campaigns:[],
+    user_id: "",
     isFetching: false,
     isPosting: false,
     error: ""
 }
 
-export const kickstartReducer = (state = initialState, action) => {
+const kickstartReducer = (state = initialState, action) => {
     switch(action.type){
         case FETCH_DATA:
             return{
@@ -70,7 +71,10 @@ export const kickstartReducer = (state = initialState, action) => {
                 isPosting: false,
                 error: action.payload
             }
-        default: 
-            return state;
+        
+            default: 
+            return state
     }
+   
 }
+export default kickstartReducer;

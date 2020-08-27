@@ -3,7 +3,9 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Registration from './components/Registration';
 import Login from './components/Login';
-import CampaignsForm from './components/profile/CampaignForm';
+import PrivateRoute from "./components/utils/PrivateRoute";
+import ProfilePage from './components/profile/ProfilePage';
+import CampaignForm from './components/profile/CampaignForm';
 import CampaignsList from './components/profile/CampaignsList';
 
 function App() {
@@ -12,10 +14,12 @@ function App() {
       <h1>Kickstarter App</h1>
       <Switch>
         <Route path='/campaigning' component={CampaignsList}/>
-        <Route path='/campaigns' component={CampaignsForm} />
+        <Route path='/campaign' component={CampaignForm} />
         <Route path="/registration" component={Registration}></Route>
         <Route path="/login" component={Login}></Route>
         <Route component={Login} />
+        <PrivateRoute exact path="/profile" component={ProfilePage}></PrivateRoute>
+        <Route path="/form" component={CampaignForm}></Route>
       </Switch>
     </div>
   );

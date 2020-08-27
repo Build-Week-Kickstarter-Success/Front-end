@@ -3,7 +3,7 @@ import "../styles/login.css";
 import * as Yup from "yup";
 import {useInput} from "./Customhooks/Logincustomhook"
 import {motion} from 'framer-motion'
-import axios from 'axios';
+import { axiosAuth } from './utils/axiosAuth';
 import { useHistory } from 'react-router-dom';
 
 function Login() {
@@ -71,10 +71,14 @@ function Login() {
 
     const formSubmit = event => {
         event.preventDefault();
-        axios
-            .post('http://localhost:5000/api/login', credentials)
+        axiosAuth()
+            .post('auth/login', credentials)
             .then(res => {
-                push('/')
+                console.log(res)
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("user_id", res.data.id);
+                push('profile')
+                
             })
             .catch(err => {
                 console.log('Failed Login: ', err.message)
