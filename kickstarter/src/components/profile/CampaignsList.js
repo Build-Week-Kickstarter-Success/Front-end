@@ -12,7 +12,7 @@ const CampaignsList = (props) => {
   return(
       <div>
           {console.log(props,"campaigns list")}
-          {props.campaigns && props.campaigns.map(campaign => (<CampaignCard campaign={campaign}/>))}
+          {props.campaigns && props.campaigns.map(campaign => (<CampaignCard campaign={campaign} key={campaign.id}/>))}
       </div>
   )
 }
