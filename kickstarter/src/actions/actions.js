@@ -1,6 +1,5 @@
 import axios from "axios";
 
-=======
 import { useHistory, useParams } from 'react-router-dom';
 import { axiosAuth } from "../components/utils/axiosAuth";
 
@@ -31,6 +30,7 @@ export const POST_FAIL = "POST_FAIL";
 
 export const postCampaigns = (campaign) => (dispatch) => {
     
+    
     dispatch({type: POST_DATA})
 
 
@@ -38,8 +38,7 @@ export const postCampaigns = (campaign) => (dispatch) => {
     campaign = {...campaign}  
     axiosAuth()
         .post("campaign", campaign)
-        .then( res => { 
-            
+        .then( res => {           
              console.log("Post success", res.data) 
                 useHistory('profile')
 
@@ -60,8 +59,7 @@ export const updateCampaigns = campaignToEdit => (dispatch) => {
     
     dispatch({type: EDIT_DATA})
 
-
-    console.log(campaign)    
+   
     axios
         .put("https://bw1kickstartersuccess.herokuapp.com/api/campaign", campaignToEdit)
         .then( res => {

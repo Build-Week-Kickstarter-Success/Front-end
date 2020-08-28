@@ -20,7 +20,7 @@ const CampaignEdit = props => {
     const { push } = useHistory();
     useEffect(() => {
         axiosWithAuth()
-            .get(`campaign`)
+            .get(`campaign/${id}`)
             .then(res => {
                 console.log(res)
                 const filteredArray = res.data.filter(campaign => campaign.id == id)
@@ -47,7 +47,7 @@ const CampaignEdit = props => {
       const submitHandler = e => {
         e.preventDefault();
         axiosWithAuth()
-            .put(`campaign/${id}`, campaign)
+            .put(`campaign/${props.id}`, campaign)
             .then(res => {
                 push('/campaign-list')
             })
@@ -64,7 +64,7 @@ const CampaignEdit = props => {
                     id='name'
                     name="name"
                     placeholder="Enter Name"
-                    value = {campaign.name}
+                    value = {props.name}
                     onChange = {inputHandler}
                     className="input"/>
 
@@ -74,7 +74,7 @@ const CampaignEdit = props => {
                     name="video"
                     labe="video"
                     placeholder="Campaign video"
-                    value = {campaign.video}
+                    value = {props.video}
                     onChange = {inputHandler}
                     className="input"/>
                 <label htmlFor="description">description</label>
@@ -83,7 +83,7 @@ const CampaignEdit = props => {
                     name="desc"
                     label="desc"
                     placeholder="Campaign description"
-                    value = {campaign.desc}
+                    value = {props.desc}
                     onChange = {inputHandler}
                     className="input"/>
 
@@ -93,7 +93,7 @@ const CampaignEdit = props => {
                                     name="disable_communication"
                                     labe="disable_communication"
                                     placeholder="disable_communication"
-                                    value = {campaign.disable_communication}
+                                    value = {props.disable_communication}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -103,7 +103,7 @@ const CampaignEdit = props => {
                                     name="country"
                                     labe="country"
                                     placeholder="country"
-                                    value = {campaign.country}
+                                    value = {props.country}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -113,7 +113,7 @@ const CampaignEdit = props => {
                                     name="currency"
                                     labe="currency"
                                     placeholder="currency"
-                                    value = {campaign.currency}
+                                    value = {props.currency}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -123,7 +123,7 @@ const CampaignEdit = props => {
                                     name="goal"
                                     labe="goal"
                                     placeholder="goal"
-                                    value = {campaign.goal}
+                                    value = {props.goal}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -133,7 +133,7 @@ const CampaignEdit = props => {
                                     name="campaign_length"
                                     labe="length"
                                     placeholder="Campaign length in months"
-                                    value = {campaign.campaign_length}
+                                    value = {props.campaign_length}
                                     onChange = {inputHandler}
                                     className="input"/>
 
@@ -144,15 +144,13 @@ const CampaignEdit = props => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-
+const mapStateToProps = (state) => {
+    console.log(state)
+    return{
+        campaigns: state.campaigns,
+        isPosting: state.isPosting,
+        error: state.error
     }
 }
 
-export default connect(
-    mapStateToProps,
-    {
-        updateCampaigns
-    }
-)(CampaignEdit);
+export default connect(mapStateToProps, {updateCampaigns})(CampaignEdit)

@@ -66,7 +66,6 @@ const CampaignsForm = (props) => {
             .catch(err => {
                 console.log('failed to post campaign: ', err.message)
             })
-
     }
     return(
         <div>

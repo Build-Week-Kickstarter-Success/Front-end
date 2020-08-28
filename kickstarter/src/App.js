@@ -6,9 +6,8 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import PrivateRoute from "./components/utils/PrivateRoute";
 import ProfilePage from './components/profile/ProfilePage';
-import CampaignForm from './components/profile/CampaignForm';
+import CampaignsForm from './components/profile/CampaignForm';
 import CampaignsList from './components/profile/CampaignsList';
-import ProfilePage from './components/profile/ProfilePage';
 import CampaignEdit from './components/profile/CampaignEdit';
 
 function App() {
@@ -24,9 +23,9 @@ function App() {
 
         <Route path="/registration" component={Registration}></Route>
         <Route path="/login" component={Login}></Route>
-        <Route component={Login} />
-        <PrivateRoute exact path="/profile" component={ProfilePage}></PrivateRoute>
-        <Route path="/form" component={CampaignForm}></Route>
+        
+        <Route path="/profile" component={ProfilePage}></Route>
+        <Route path="/form" component={CampaignsForm}></Route>
       </Switch>
     </div>
   );

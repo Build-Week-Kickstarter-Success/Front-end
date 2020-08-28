@@ -5,8 +5,8 @@ import {useInput} from "./Customhooks/Logincustomhook"
 import {motion} from 'framer-motion'
 
 import { axiosAuth } from './utils/axiosAuth';
+import { useHistory, Link } from 'react-router-dom';
 
-import { useHistory } from 'react-router-dom';
 
 
 function Login() {
@@ -80,8 +80,8 @@ function Login() {
             .then(res => {
                 console.log(res)
                 localStorage.setItem("token", res.data.token);
-                localStorage.setItem("user_id", res.data.id);
-                push('profile')
+                localStorage.setItem("user_id", res.data.userInfo);
+                push('/profile')
                 
 
             })
@@ -106,6 +106,7 @@ function Login() {
                             {error.password.length > 6 ? <p>{error.password}</p>:null}
                         </label>
                         <button type="submit">Login</button>
+                        <Link to= "/registration"><button>Register</button></Link>
                     </form>
                 </div>
         </div>
