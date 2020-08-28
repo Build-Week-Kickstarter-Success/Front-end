@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
-
-
-
-
-
-    
-
 import { postCampaigns, updateCampaigns } from "../../actions/actions";
 import { useHistory } from 'react-router-dom';
 import { axiosAuth } from "../utils/axiosAuth";
+import axios from "axios";
 
 const CampaignsForm = (props) => {
     const {push} = useHistory();
@@ -22,16 +15,19 @@ const CampaignsForm = (props) => {
         name: '',
         video: '',
         desc: '',
-        disable_communication: 0,
+        disable_communication: "false",
         keywords: '',
         country: 'US',
         currency: 'Dollar',
         goal: 1200,
         campaign_length: 60,
-        user_id: localStorage.getItem("user_id") * 1
-
-
+        user_id: localStorage.getItem("user_id") * 1,
     })
+
+    const [success, setSuccess] = useState({
+        output: ''
+    })
+
     const inputHandler = e => {
         if(e.target.type === 'checkbox' && active === false){
             setActive(true);
@@ -55,13 +51,26 @@ const CampaignsForm = (props) => {
     console.log(campaign)
     const submitHandler = e => {
         e.preventDefault();
+        
+        axios
+        .post('https://cors-anywhere.herokuapp.com/https://karen-kickstarter.herokuapp.com/campaign',campaign)
+        .then(res =>{
+            console.log('ds response', res.data)
+            setSuccess(res.output)
+            console.log(success)
+            })
+        .catch(err => {
+            console.log('failed to post to DS', err.message)
+        })
 
         console.log('state being sent', campaign)
         axiosAuth()
             .post('campaign', campaign)
+            
             .then(res => {
+                
                 console.log('response after posting campaign: ', res)
-                push('/campaign-list')
+                push('/profile')
             })
             .catch(err => {
                 console.log('failed to post campaign: ', err.message)
@@ -149,6 +158,7 @@ const CampaignsForm = (props) => {
                                     value = {props.campaign_length}
                                     onChange = {inputHandler}
                                     className="input"/>
+                
 
                     <button>Submit Campaign</button>
             </form>

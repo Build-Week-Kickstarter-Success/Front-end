@@ -7,6 +7,7 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 const CampaignsCard = (props) => {
     const { push } = useHistory();
     const deleteCampaign = e => {
+        e.preventDefault()
         axiosWithAuth()
             .delete(`campaign/${props.campaign.id}`)
             .then(res => {
@@ -19,7 +20,7 @@ const CampaignsCard = (props) => {
             .get('campaign')
             .then(res => {
                 console.log(res.data)
-                push('/campaign-list')
+                push('/profile')
             })
             .catch(err => {
                 console.log('failed to get campaign after deleting campaign: ', err.message)
@@ -35,6 +36,7 @@ const CampaignsCard = (props) => {
             <h3>{props.campaign.currency}</h3>
             <h3>{props.campaign.goal}</h3>
             <h3>{props.campaign.length}</h3>
+            <h3>{props.output}</h3>
             <button onClick={() => {push(`/campaign/edit/${props.campaign.id}`)}}>Edit</button>
             <button onClick={deleteCampaign}>Delete</button>
         </div>
