@@ -1,4 +1,4 @@
-import { FETCH_DATA, FETCH_SUCCESS, FETCH_FAIL, POST_SUCCESS, POST_DATA, POST_FAIL, EDIT_DATA, EDIT_FAIL, EDIT_SUCCESS } from "../actions/actions";
+import { FETCH_DATA, FETCH_SUCCESS, FETCH_FAIL, POST_SUCCESS, POST_DATA, POST_FAIL, EDIT_DATA, EDIT_FAIL, EDIT_SUCCESS} from "../actions/actions";
 
 const initialState = {
     campaigns:[],
@@ -41,7 +41,7 @@ const kickstartReducer = (state = initialState, action) => {
             return{
                 ...state,
                 isPosting: false,
-                smurfs: action.payload
+                campaigns: action.payload
             }
 
         case POST_FAIL:
@@ -71,6 +71,7 @@ const kickstartReducer = (state = initialState, action) => {
                 isPosting: false,
                 error: action.payload
             }
+
         
             default: 
             return state

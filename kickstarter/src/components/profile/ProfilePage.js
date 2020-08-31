@@ -23,7 +23,7 @@ const ProfilePage = () => {
 
    return(
        <div>
-           <CampaignsList/>
+           <CampaignsList />
            <Link to ="/form"><button>Add Campaign</button></Link>
        </div>
    )

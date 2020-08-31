@@ -24,10 +24,6 @@ const CampaignsForm = (props) => {
         user_id: localStorage.getItem("user_id") * 1,
     })
 
-    const [success, setSuccess] = useState({
-        output: ''
-    })
-
     const inputHandler = e => {
         if(e.target.type === 'checkbox' && active === false){
             setActive(true);
@@ -56,8 +52,7 @@ const CampaignsForm = (props) => {
         .post('https://cors-anywhere.herokuapp.com/https://karen-kickstarter.herokuapp.com/campaign',campaign)
         .then(res =>{
             console.log('ds response', res.data)
-            setSuccess(res.output)
-            console.log(success)
+            localStorage.setItem("success", res.data.output)
             })
         .catch(err => {
             console.log('failed to post to DS', err.message)
