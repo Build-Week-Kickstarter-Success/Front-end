@@ -6,6 +6,8 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 const CampaignsCard = (props) => {
     const { push } = useHistory();
+
+    const success = localStorage.getItem("success");
     const deleteCampaign = e => {
         e.preventDefault()
         axiosWithAuth()
@@ -36,7 +38,7 @@ const CampaignsCard = (props) => {
             <h3>{props.campaign.currency}</h3>
             <h3>{props.campaign.goal}</h3>
             <h3>{props.campaign.length}</h3>
-            <h3>{props.output}</h3>
+            <h3>{success}</h3>
             <button onClick={() => {push(`/campaign/edit/${props.campaign.id}`)}}>Edit</button>
             <button onClick={deleteCampaign}>Delete</button>
         </div>

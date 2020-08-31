@@ -9,6 +9,8 @@ const CampaignsList = (props) => {
     useEffect(() => {
         props.fetchCampaigns()
     }, [])
+
+    
   return(
       <div>
           {console.log(props,"campaigns list")}
